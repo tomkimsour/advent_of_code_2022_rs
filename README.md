@@ -18,7 +18,7 @@ Time will be performed on a Intel i9-11950H :computer: or an apple m1 chip :appl
 
 | Day | Part 1 :computer: | Part 2 :computer: | part 1 :apple: | Part 2 :apple: |
 | :---: | :---: | :---: | :---: | :---: |
-| [Day 1](https://adventofcode.com/2022/day/1) | 41.54µs | 33.59µs | | |
+| [Day 1](https://adventofcode.com/2022/day/1) | 41.54µs | 33.59µs | 49.04µs | 38.13µs |
 
 
 ### Commands
