@@ -14,6 +14,9 @@ pub fn part_one(input: &str) -> Option<u32> {
             elf_calories = elf_calories + line.parse::<u32>().unwrap();
         }
     }
+    if elf_calories > max {
+        max = elf_calories;
+    }
     Some(max)
 }
 
@@ -31,6 +34,9 @@ pub fn part_two(input: &str) -> Option<u32> {
             elf_calories = elf_calories + line.parse::<u32>().unwrap();
         }
     }
+    a_max.push(elf_calories);
+    a_max.sort_by_key(|w| Reverse(*w));
+    a_max.pop();
     Some(a_max.into_iter().sum())
 }
 
@@ -53,6 +59,6 @@ mod tests {
     #[test]
     fn test_part_two() {
         let input = advent_of_code::read_file("examples", 1);
-        assert_eq!(part_two(&input), Some(48000));
+        assert_eq!(part_two(&input), Some(45000));
     }
 }
