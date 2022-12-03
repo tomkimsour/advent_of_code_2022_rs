@@ -4,7 +4,7 @@ pub fn part_one(input: &str) -> Option<u32> {
     let lines = input.split("\n").collect::<Vec<&str>>();
     let wins: HashMap<&str, u32> = HashMap::from([("A Y", 8), ("B Z", 9), ("C X", 7)]);
     let draws: HashMap<&str, u32> = HashMap::from([("A X", 4), ("B Y", 5), ("C Z", 6)]);
-    let values: HashMap<&str, u32> = HashMap::from([("A Z", 2), ("B X", 3), ("C Y", 1)]);
+    let values: HashMap<&str, u32> = HashMap::from([("A Z", 3), ("B X", 1), ("C Y", 2)]);
     let mut score: u32 = 0;
     for line in lines {
         match wins.get(line) {
@@ -32,9 +32,9 @@ pub fn part_one_2(input: &str) -> Option<u32> {
             "A X" => 4,
             "B Y" => 5,
             "C Z" => 6,
-            "A Z" => 2,
-            "B X" => 3,
-            "C Y" => 1,
+            "A Z" => 3,
+            "B X" => 1,
+            "C Y" => 2,
             _ => unreachable!(),
         })
         .sum();
@@ -104,8 +104,20 @@ mod tests {
     }
 
     #[test]
+    fn test_part_one_2() {
+        let input = advent_of_code::read_file("examples", 2);
+        assert_eq!(part_one_2(&input), Some(15));
+    }
+
+    #[test]
     fn test_part_two() {
         let input = advent_of_code::read_file("examples", 2);
         assert_eq!(part_two(&input), Some(12));
+    }
+
+    #[test]
+    fn test_part_two_2() {
+        let input = advent_of_code::read_file("examples", 2);
+        assert_eq!(part_two_2(&input), Some(12));
     }
 }
