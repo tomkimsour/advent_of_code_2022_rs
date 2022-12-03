@@ -4,14 +4,14 @@ pub fn part_one(input: &str) -> Option<u32> {
     let lines = input.split("\n").collect::<Vec<&str>>();
     let wins: HashMap<&str, u32> = HashMap::from([("A Y", 8), ("B Z", 9), ("C X", 7)]);
     let draws: HashMap<&str, u32> = HashMap::from([("A X", 4), ("B Y", 5), ("C Z", 6)]);
-    let values: HashMap<&str, u32> = HashMap::from([("Y", 2), ("Z", 3), ("X", 1)]);
+    let values: HashMap<&str, u32> = HashMap::from([("A Z", 2), ("B X", 3), ("C Y", 1)]);
     let mut score: u32 = 0;
     for line in lines {
         match wins.get(line) {
             Some(win) => score += win,
             None => match draws.get(line) {
                 Some(draw) => score += draw,
-                None => match values.get(&line[line.len() - 1..]) {
+                None => match values.get(line) {
                     Some(value) => score += value,
                     None => panic!("The input was found in no map"),
                 },
@@ -19,6 +19,25 @@ pub fn part_one(input: &str) -> Option<u32> {
         }
     }
 
+    Some(score)
+}
+
+pub fn part_one_2(input: &str) -> Option<u32> {
+    let score = input
+        .lines()
+        .map(|line| match line {
+            "A Y" => 8,
+            "B Z" => 9,
+            "C X" => 7,
+            "A X" => 4,
+            "B Y" => 5,
+            "C Z" => 6,
+            "A Z" => 2,
+            "B X" => 3,
+            "C Y" => 1,
+            _ => unreachable!(),
+        })
+        .sum();
     Some(score)
 }
 
@@ -48,10 +67,30 @@ pub fn part_two(input: &str) -> Option<u32> {
     Some(score)
 }
 
+pub fn part_two_2(input: &str) -> Option<u32> {
+    let score = input
+        .lines()
+        .map(|line| match line {
+            "A Y" => 4,
+            "B Z" => 9,
+            "C X" => 2,
+            "A X" => 3,
+            "B Y" => 5,
+            "C Z" => 7,
+            "A Z" => 8,
+            "B X" => 1,
+            "C Y" => 6,
+            _ => unreachable!(),
+        })
+        .sum();
+    Some(score)
+}
 fn main() {
     let input = &advent_of_code::read_file("inputs", 2);
-    advent_of_code::solve!(1, part_one, input);
-    advent_of_code::solve!(2, part_two, input);
+    // advent_of_code::solve!(1, part_one, input);
+    advent_of_code::solve!(1, part_one_2, input);
+    // advent_of_code::solve!(2, part_two, input);
+    advent_of_code::solve!(2, part_two_2, input);
 }
 
 #[cfg(test)]

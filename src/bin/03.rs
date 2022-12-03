@@ -1,5 +1,7 @@
 use std::collections::HashSet;
 
+use itertools::Itertools;
+
 fn get_common_item_value(line: &str) -> u32 {
     let len = line.len() / 2;
     let first_half = line[..len].chars();
@@ -20,11 +22,7 @@ fn get_common_item_value(line: &str) -> u32 {
 }
 
 pub fn part_one(input: &str) -> Option<u32> {
-    let lines = input.split("\n").collect::<Vec<&str>>();
-    let mut sum = 0;
-    for line in lines {
-        sum += get_common_item_value(line);
-    }
+    let sum = input.lines().map(|line| get_common_item_value(line)).sum(); //split("\n").collect::<Vec<&str>>();
     Some(sum)
 }
 
@@ -44,11 +42,11 @@ fn get_badge_priority(lines1: &str, lines2: &str, lines3: &str) -> u32 {
 }
 
 pub fn part_two(input: &str) -> Option<u32> {
-    let lines = input.split("\n").collect::<Vec<&str>>();
-    let mut sum = 0;
-    for index in (0..lines.len() - 2).step_by(3) {
-        sum += get_badge_priority(lines[index], lines[index + 1], lines[index + 2]);
-    }
+    let sum = input
+        .lines()
+        .tuples()
+        .map(|(a, b, c)| get_badge_priority(a, b, c))
+        .sum(); //split("\n").collect::<Vec<&str>>();
     Some(sum)
 }
 
