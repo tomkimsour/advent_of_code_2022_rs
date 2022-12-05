@@ -21,8 +21,10 @@ Time will be performed on a Intel i9-11950H :computer: or an apple m1 chip :appl
 | Day | Part 1 :computer: | Part 2 :computer: | part 1 :apple: | Part 2 :apple: |
 | :---: | :---: | :---: | :---: | :---: |
 | [Day 1](https://adventofcode.com/2022/day/1) | 41.54µs | 33.59µs | 49.04µs | 38.13µs |
-| [Day 2](https://adventofcode.com/2022/day/2) | 85.09µs | 57.54µs | 39.42µs| 38.79µs |
-| [Day 3](https://adventofcode.com/2022/day/3) |  | | 162.38µs | 287.00µs |
+| [Day 2](https://adventofcode.com/2022/day/2) | 36.79µs | 36.61µs | 39.42µs| 38.79µs |
+| [Day 3](https://adventofcode.com/2022/day/3) | 112.5µs | 197.37µs | 162.38µs | 287.00µs |
+| [Day 4](https://adventofcode.com/2022/day/4) | 467.10µs | 458.01µs | |  |
+| [Day 5](https://adventofcode.com/2022/day/5) |  | | |  |
 <!-- | [Day 3](https://adventofcode.com/2022/day/3) |  | | |  | -->
 
 
