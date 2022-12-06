@@ -1,26 +1,21 @@
-#![allow(dead_code)]
-#![allow(unused_variables)]
-#![allow(unused_imports)]
-
-
 use core::str::Lines;
-use std::{iter::Rev, cmp::Ordering, collections::LinkedList};
 use regex::Regex;
+use std::{collections::LinkedList, iter::Rev};
 
 fn init_vec_stack(mut input: Rev<Lines>) -> Vec<Vec<String>> {
     let first_line = input.next().unwrap();
     let len = first_line.len();
-    let mut array :Vec<Vec<String>>= Vec::new();
-    for index in (1..len).step_by(4){
+    let mut array: Vec<Vec<String>> = Vec::new();
+    for index in (1..len).step_by(4) {
         array.push(vec![first_line.chars().nth(index).unwrap().to_string()]);
     }
 
-    input.for_each(|line|{
-        for index in (1..len).step_by(4){
+    input.for_each(|line| {
+        for index in (1..len).step_by(4) {
             // println!("{}",(index-1)/4);
-            let current_string= line.chars().nth(index).unwrap().to_string();
+            let current_string = line.chars().nth(index).unwrap().to_string();
             if !current_string.trim().is_empty() {
-                array[(index-1)/4].push(current_string);
+                array[(index - 1) / 4].push(current_string);
             }
         }
     });
@@ -34,7 +29,7 @@ pub fn part_one(input: &str) -> Option<String> {
     // skipping useless number line
     stack_input.next();
 
-    let mut stack_vector= init_vec_stack(stack_input);
+    let mut stack_vector = init_vec_stack(stack_input);
 
     // execute every action
     let order_input = iter.next().unwrap();
@@ -43,9 +38,9 @@ pub fn part_one(input: &str) -> Option<String> {
         let cap = re.captures(line).unwrap();
 
         let first = cap[1].parse::<usize>().unwrap();
-        let second = cap[2].parse::<usize>().unwrap()-1;
-        let third = cap[3].parse::<usize>().unwrap()-1;
-        for nb_iter in 0..first{
+        let second = cap[2].parse::<usize>().unwrap() - 1;
+        let third = cap[3].parse::<usize>().unwrap() - 1;
+        for _ in 0..first {
             let moved_crate = stack_vector[second].pop().unwrap();
             stack_vector[third].push(moved_crate);
         }
@@ -53,7 +48,7 @@ pub fn part_one(input: &str) -> Option<String> {
 
     // retrieve the top of each stack and put it in a string
     let mut res = "".to_string();
-    for mut stack in stack_vector{
+    for mut stack in stack_vector {
         res += &stack.pop().unwrap_or("".to_string());
     }
 
@@ -67,7 +62,7 @@ pub fn part_two(input: &str) -> Option<String> {
     // skipping useless number line
     stack_input.next();
 
-    let mut stack_vector= init_vec_stack(stack_input);
+    let mut stack_vector = init_vec_stack(stack_input);
 
     // execute every action
     let order_input = iter.next().unwrap();
@@ -76,10 +71,10 @@ pub fn part_two(input: &str) -> Option<String> {
         let cap = re.captures(line).unwrap();
 
         let first = cap[1].parse::<usize>().unwrap();
-        let second = cap[2].parse::<usize>().unwrap()-1;
-        let third = cap[3].parse::<usize>().unwrap()-1;
-        let mut intermidiate_stack:LinkedList<String> = LinkedList::new();
-        for nb_iter in 0..first{
+        let second = cap[2].parse::<usize>().unwrap() - 1;
+        let third = cap[3].parse::<usize>().unwrap() - 1;
+        let mut intermidiate_stack: LinkedList<String> = LinkedList::new();
+        for _ in 0..first {
             let moved_crate = stack_vector[second].pop().unwrap();
             intermidiate_stack.push_front(moved_crate);
         }
@@ -90,7 +85,7 @@ pub fn part_two(input: &str) -> Option<String> {
 
     // retrieve the top of each stack and put it in a string
     let mut res = "".to_string();
-    for mut stack in stack_vector{
+    for mut stack in stack_vector {
         res += &stack.pop().unwrap_or("".to_string());
     }
     Some(res)
