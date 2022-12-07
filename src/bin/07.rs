@@ -3,15 +3,30 @@
 #![allow(unused_imports)]
 
 
+#[derive(Clone)]
+struct NTree {
+    parent : Option<Box<NTree>>,
+    value : u32,
+    children : Option<Vec<NTree>>,
+    root : bool,
+}
+
+impl NTree {
+    fn new(parent:Option<Box<NTree>>,value:u32,root:bool) ->NTree {
+        NTree { parent: (parent), value: (value), children: (None), root: (root) }
+    }    
+}
+
 pub fn part_one(input: &str) -> Option<u32> {
     let lines = input.lines();
     for line in lines {
         // command
         let mut split_line = line.split(" ");
-        match split_line.next() {
+        let first_string = split_line.next();
+        match first_string {
             Some("$") => {println!("Found $")},
-            Some() => {println!("Found $")},
-            _ => panic!("The first word of the line has not been handled"),
+            Some("dir") => {println!("Found dir")},
+            _ => println!("{}",first_string.unwrap().parse::<u32>().unwrap()),
         };
         // if split_line. ==36 {
         //     line.chars().next();
