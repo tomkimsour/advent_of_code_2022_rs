@@ -126,8 +126,8 @@ pub fn part_two(input: &str) -> Option<u32> {
     let row_len = forest_matrix.trees.len();
     let col_len = forest_matrix.trees[0].len();
     forest_matrix.visible_tree = 0;
-    for i in 1..row_len-1{
-        for j in 1..col_len-1{
+    for i in 0..row_len{
+        for j in 0..col_len{
             let tree_height = forest_matrix.trees[i][j].height;
             //top
             for row in (0..i).rev(){
