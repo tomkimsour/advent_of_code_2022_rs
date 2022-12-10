@@ -1,11 +1,7 @@
-#![allow(dead_code)]
-#![allow(unused_variables)]
-#![allow(unused_imports)]
-use std::borrow::Borrow;
 use std::collections::HashMap;
 use std::str;
 
-use std::{collections::LinkedList, str::Chars};
+use std::collections::LinkedList;
 
 pub fn part_one(input: &str) -> Option<u32> {
     let characters = input.as_bytes().iter();
@@ -13,18 +9,24 @@ pub fn part_one(input: &str) -> Option<u32> {
     let mut subroutine = characters.clone().take(3).collect::<LinkedList<&u8>>();
     let mut value_hashmap_tracker = HashMap::new();
     characters.clone().take(3).for_each(|val| {
-        *value_hashmap_tracker.entry(val).or_insert(0) +=1;
+        *value_hashmap_tracker.entry(val).or_insert(0) += 1;
     });
-    for (index,byte) in characters.skip(3).enumerate(){
+    for (index, byte) in characters.skip(3).enumerate() {
         subroutine.push_back(&byte);
-        *value_hashmap_tracker.entry(&byte).or_insert(0)+= 1;
-        if subroutine.clone().iter().map(|key| *value_hashmap_tracker.get(key).unwrap() as u8).sum::<u8>() == 4 {
+        *value_hashmap_tracker.entry(&byte).or_insert(0) += 1;
+        if subroutine
+            .clone()
+            .iter()
+            .map(|key| *value_hashmap_tracker.get(key).unwrap() as u8)
+            .sum::<u8>()
+            == 4
+        {
             return Some(index as u32 + 4);
         } else {
             let value = subroutine.pop_front().unwrap();
             *value_hashmap_tracker.entry(value).or_insert(1) -= 1;
         }
-    };
+    }
     Some(0)
 }
 
@@ -34,28 +36,34 @@ pub fn part_two(input: &str) -> Option<u32> {
     let mut subroutine = characters.clone().take(13).collect::<LinkedList<&u8>>();
     let mut value_hashmap_tracker = HashMap::new();
     characters.clone().take(13).for_each(|val| {
-        *value_hashmap_tracker.entry(val).or_insert(0) +=1;
+        *value_hashmap_tracker.entry(val).or_insert(0) += 1;
     });
-//     println!("-----init-----");
-//         println!("[13] hash : {:?}",value_hashmap_tracker);
-//         println!("[13] subroutine : {:?}",subroutine);
-//         println!("[13] condition : {:?}",subroutine.clone().iter().map(|key| *value_hashmap_tracker.get(key).unwrap() as u8).sum::<u8>());
-// println!();
-//     println!("-----boucle-----");
-    for (index,byte) in characters.skip(13).enumerate(){
+    //     println!("-----init-----");
+    //         println!("[13] hash : {:?}",value_hashmap_tracker);
+    //         println!("[13] subroutine : {:?}",subroutine);
+    //         println!("[13] condition : {:?}",subroutine.clone().iter().map(|key| *value_hashmap_tracker.get(key).unwrap() as u8).sum::<u8>());
+    // println!();
+    //     println!("-----boucle-----");
+    for (index, byte) in characters.skip(13).enumerate() {
         subroutine.push_back(&byte);
-        *value_hashmap_tracker.entry(&byte).or_insert(0)+= 1;
+        *value_hashmap_tracker.entry(&byte).or_insert(0) += 1;
         // println!("[{}] hash : {:?}",index+14,value_hashmap_tracker);
         // println!("[{}] subroutine : {:?}",index+14,subroutine);
         // println!("[{}] condition : {:?}",index+14,subroutine.clone().iter().map(|key| *value_hashmap_tracker.get(key).unwrap() as u8).sum::<u8>());
-        if subroutine.clone().iter().map(|key| *value_hashmap_tracker.get(key).unwrap() as u8).sum::<u8>() == 14 {
+        if subroutine
+            .clone()
+            .iter()
+            .map(|key| *value_hashmap_tracker.get(key).unwrap() as u8)
+            .sum::<u8>()
+            == 14
+        {
             return Some(index as u32 + 14);
         } else {
             let value = subroutine.pop_front().unwrap();
             *value_hashmap_tracker.entry(value).or_insert(1) -= 1;
         }
-    // println!();
-    };
+        // println!();
+    }
     Some(0)
 }
 
