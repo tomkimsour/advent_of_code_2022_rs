@@ -126,12 +126,12 @@ pub fn part_two(input: &str) -> Option<u32> {
     let row_len = forest_matrix.trees.len();
     let col_len = forest_matrix.trees[0].len();
     forest_matrix.visible_tree = 0;
-    for i in 0..row_len{
-        for j in 0..col_len{
+    for i in 1..row_len{
+        for j in 1..col_len{
             let tree_height = forest_matrix.trees[i][j].height;
             //top
             for row in (0..i).rev(){
-                forest_matrix.trees[i][j].visibility_top +=1;
+                    forest_matrix.trees[i][j].visibility_top +=1;
                 if forest_matrix.trees[row][j].height < tree_height {
                     if !forest_matrix.trees[row][j].visible {
                         forest_matrix.trees[row][j].visible = true;
@@ -142,7 +142,7 @@ pub fn part_two(input: &str) -> Option<u32> {
             }
             //left
             for col in (0..j).rev(){
-                forest_matrix.trees[i][j].visibility_left+=1;
+                    forest_matrix.trees[i][j].visibility_left+=1;
                 if forest_matrix.trees[i][col].height < tree_height {
                     if !forest_matrix.trees[i][col].visible {
                         forest_matrix.trees[i][col].visible = true;
@@ -152,8 +152,8 @@ pub fn part_two(input: &str) -> Option<u32> {
                 }
             }
             //right
-            for col in j..col_len{
-                forest_matrix.trees[i][j].visibility_right+=1;
+            for col in j+1..col_len{
+                    forest_matrix.trees[i][j].visibility_right+=1;
                 if forest_matrix.trees[i][col].height < tree_height{
                     if !forest_matrix.trees[i][col].visible {
                         forest_matrix.trees[i][col].visible = true;
@@ -163,14 +163,14 @@ pub fn part_two(input: &str) -> Option<u32> {
                 }
             }
             //botoom
-            for row in i..row_len{
-                forest_matrix.trees[i][j].visibility_bottom+=1;
+            for row in i+1..row_len{
+                    forest_matrix.trees[i][j].visibility_bottom+=1;
                 if forest_matrix.trees[row][j].height < tree_height{
                     if !forest_matrix.trees[row][j].visible {
                         forest_matrix.trees[row][j].visible = true;
                     }
                 } else {
-
+                    break;
                 }
             }
 
