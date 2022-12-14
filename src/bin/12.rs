@@ -2,7 +2,7 @@
 #![allow(unused_variables)]
 #![allow(unused_imports)]
 
-use std::{str::Lines, collections::HashMap};
+use std::{str::Lines, collections::{HashMap, HashSet}, hash::{Hash, Hasher}};
 
 use itertools::Itertools;
 use nalgebra::{Point2};
@@ -10,43 +10,64 @@ use nalgebra::{Point2};
 struct Node {
     value : u8,
     visited : bool,
-    neighbor : HashMap<u8,Vec<Node>>,
+    neighbours : HashMap<u32,Vec<Node>>,
 }
 
 impl Node {
     fn new() -> Node{
-        Node { value: (0), visited: (false), neighbor: (HashMap::new()) }
+        Node  {value: (0), visited: (false), neighbours: (HashMap::new())}
+    }
+
+    fn from(value:u8) -> Node{
+        Node { value: (value), visited: (false), neighbours: (HashMap::new())}
+    }
+
+    fn add_neighbour(&self,row:usize, col:usize, node_matrix:Vec<Vec<Node>>){
+        // check top
+        // check left
+        // check right 
+        // check bottom 
     }
 }
 
 struct HeightMap {
-    map : Vec<Vec<u8>>,
+    map : HashMap<u32,Vec<Node>>,
     start : Point2<u32>,
     end : Point2<u32>,
 }
 
 impl HeightMap {
     fn new(lines: Lines) -> HeightMap{
-        let mut vec = Vec::new();
-        let mut start : Point2<u32> = Point2::new(0, 0);
-        let mut end : Point2<u32> = Point2::new(0, 0);
+
+        // create a matrix of nodes
+        let mut node_matrix= Vec::new();
+        let mut start = Node::new();
+        let mut end = Node::new();
         for (i,line) in lines.enumerate() {
-            let mut col:Vec<u8> = Vec::new();
+            let mut col:Vec<Node> = Vec::new();
             for (j,character) in line.bytes().enumerate() {
                 // check if start
                 if character == 83 {
-                    start = Point2::new(i as u32, j as u32) ;
+                    start = Node::from(b'a');
+                    col.push(start);
                 } else if character == 69 {
-                    end = Point2::new(i as u32, j as u32) ;
-                }
-                col.push(character);
+                    end = Node::from(b'z');
+                    col.push(end);
+                } else {
+                    col.push(Node::from(character));
+                } 
             }
-            vec.push(col);
+            node_matrix.push(col);
         }
 
-        // turn the matrix into a graph
-
-
+        // fill node neighbours and create set of unvisited node
+        let mut pending = HashSet::new();
+        for row in 0..node_matrix.len() {
+            for col in 0..node_matrix[0].len() {
+                node_matrix[row][col].add_neighbour(row,col,node_matrix);
+                pending.insert(&node_matrix[row][col]);
+            }
+        }
 
         let height_map: HeightMap = HeightMap { map: (vec), start: (start), end: (end) };
         height_map
